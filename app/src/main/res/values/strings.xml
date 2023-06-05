@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">PedidosOnline</string>
+    <string name="titulo">Pedidos Online</string>
+    <string name="bienvenida">¡Hola! Es bueno verte nuevamente</string>
+    <string name="email">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="opcionRedes">O conéctarse usando las redes sociales</string>
+    <string name="twitter">Twitter</string>
+    <string name="facebook">Facebook</string>
+    <string name="recuperar_passwrod">¿Olvidó su contraseña?</string>
+    <string name="registrar">Regristrese</string>
+</resources>
