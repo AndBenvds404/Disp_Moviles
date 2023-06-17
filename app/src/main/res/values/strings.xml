@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">My Application2</string>
+    <string name="titulo">Pedidos Online</string>
+    <string name="bienvenida">¡Hola! Es bueno verte nuevamente</string>
+    <string name="email">Correo</string>
+    <string name="password">Contraseña</string>
+    <string name="ingresar">Ingresar</string>
+    <string name="opcionRedes">O conéctarse usando las redes sociales</string>
+    <string name="twitter">Twitter</string>
+    <string name="facebook">Facebook</string>
+    <string name="recuperar_passwrod">¿Olvidó su contraseña?</string>
+    <string name="registrar">Regristrese</string>
+    <string name="woman">woman</string>
+    <string name="man">man</string>
+    <string name="mayorQue">mayor</string>
+    <string name="Colosus">https://comicvine.gamespot.com/a/uploads/scale_small/11130/111300304/5810917-image.jpeg</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

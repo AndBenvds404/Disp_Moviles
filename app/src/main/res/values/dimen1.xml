@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="tamanioAlto"> 78dp</dimen>
+    <dimen name="tamanioLargo"> 78dp</dimen>
+    <dimen name="marginLeft"> 54dp</dimen>
+    <dimen name="marginRight"> 54dp</dimen>
+
+
+</resources>

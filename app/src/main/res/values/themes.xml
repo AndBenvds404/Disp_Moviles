@@ -1,0 +1,65 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.MyApplication2" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
+
+    <style name="Theme.MyApplication2" parent="Base.Theme.MyApplication2" >
+
+    </style>
+    <style name="txtTitle">
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/roboto</item>
+        <item name="android:textSize">40sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="tituloApp">
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">25sp</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="subTextos">
+        <item name="android:textColor">@color/lowGrey</item>
+
+    </style>
+
+    <style name="loginTextos">
+        <item name="android:textColor">@color/coral</item>
+    </style>
+
+    <style name="btIngresar">
+        <item name="android:textColor">@color/white</item>
+        <item name="cornerRadius">7dp</item>
+        <item name="android:backgroundTint">@color/coral</item>
+
+    </style>
+
+    <style name="credenciales">
+        <item name="android:backgroundTint">@color/lowGrey</item>
+    </style>
+
+
+
+    <style name="btTwitter">
+        <item name="android:backgroundTint">@color/Skyblue</item>
+        <item name="cornerRadius">7dp</item>
+    </style>
+
+    <style name="btFacebook">
+        <item name="android:backgroundTint">@color/blueFb</item>
+        <item name="cornerRadius">7dp</item>
+    </style>
+
+
+    <style name="btn" parent="Widget.Material3.Button.ElevatedButton">
+
+    </style>
+
+    <style name="ActivityIndicator" parent="Widget.Material3.BottomNavigationView.ActiveIndicator">
+        <item name="android:color">@color/coral</item>
+    </style>
+
+</resources>

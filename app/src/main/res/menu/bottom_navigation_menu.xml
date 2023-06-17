@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/men"
+        android:icon="@drawable/baseline_man_24"
+        android:title="@string/man"
+
+        />
+
+    <item
+        android:icon="@drawable/baseline_keyboard_arrow_right_24"
+        android:title="@string/mayorQue"
+        android:id="@+id/mayorQue"
+        />
+    <item
+        android:id="@+id/woman"
+        android:icon="@drawable/baseline_woman_24"
+        android:title="@string/woman" />
+</menu>
