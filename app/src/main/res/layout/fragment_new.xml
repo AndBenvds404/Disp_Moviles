@@ -50,15 +50,21 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="195dp"
-        tools:layout_editor_absoluteY="246dp"
-        >
+        tools:layout_editor_absoluteX="-25dp"
+        tools:layout_editor_absoluteY="153dp">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvMarvelChars"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="end" />
+
+        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+            android:id="@+id/rvSwipe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            />
+
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,28 +10,32 @@ import com.example.myapplication2.databinding.MarvelCharactersBinding
 import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
-class MarvelAdapter(private val item: List<MarvelChars>):RecyclerView.Adapter<MarvelAdapter.MarvelViewHolder>() {
-
+class MarvelAdapter(private val item: List<MarvelChars>,
+                private var fnClick:(MarvelChars)-> Unit):RecyclerView.Adapter<MarvelAdapter.MarvelViewHolder>() {
+ //unit es cuando una funcion no retorna nada
 
 
     class MarvelViewHolder (view:View): RecyclerView.ViewHolder(view){
 
         private val binding: MarvelCharactersBinding = MarvelCharactersBinding.bind(view)
 
-        fun render(item: MarvelChars){
-            println("Recibiendp a ${item.name}")
+        fun render(item: MarvelChars,
+                   fnClick:(MarvelChars)-> Unit){
+
             binding.imgMarvel.bringToFront()
             binding.txtNameHero.text = item.name
             binding.txtComic.text = item.comic
             Picasso.get().load(item.image).into(binding.imgMarvel)
 
-            binding.imgMarvel.setOnClickListener{
+
+           /* binding.imgMarvel.setOnClickListener{
                 Snackbar.make(binding.imgMarvel,
                     item.name,
                     Snackbar.LENGTH_SHORT)
                     .show()
-
-
+                        }*/
+            itemView.setOnClickListener{
+                fnClick(item)
             }
 
         }
@@ -50,7 +54,7 @@ class MarvelAdapter(private val item: List<MarvelChars>):RecyclerView.Adapter<Ma
     }
 
     override fun onBindViewHolder(holder: MarvelViewHolder, position: Int) {
-        holder.render(item[position])
+        holder.render(item[position],fnClick)
     }
 
 

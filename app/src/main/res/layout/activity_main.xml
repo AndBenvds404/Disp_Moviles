@@ -53,7 +53,7 @@
         app:layout_constraintHorizontal_bias="0.366"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tituloApp"
-        tools:ignore="MissingConstraints" />
+        />
 
     <TextView
         android:id="@+id/txtCorreo"
@@ -69,7 +69,7 @@
         app:layout_constraintHorizontal_bias="0.189"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtBienvenida"
-        tools:ignore="MissingConstraints" />
+         />
 
     <TextView
         android:id="@+id/txtPassword"
@@ -84,7 +84,7 @@
         app:layout_constraintHorizontal_bias="0.203"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCorreo"
-        tools:ignore="MissingConstraints" />
+         />
 
     <EditText
         android:id="@+id/inputPassword"
@@ -94,13 +94,12 @@
         android:layout_marginLeft="@dimen/marginLeft"
         android:layout_marginRight="@dimen/marginRight"
         android:layout_marginTop="132dp"
-        android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtBienvenida"
-        tools:ignore="MissingConstraints" />
+         />
 
     <EditText
         android:id="@+id/inputEmail"
@@ -110,13 +109,12 @@
         android:layout_marginLeft="@dimen/marginLeft"
         android:layout_marginRight="@dimen/marginRight"
         android:layout_marginTop="44dp"
-        android:ems="10"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtBienvenida"
-        tools:ignore="MissingConstraints" />
+         />
 
     <Button
         android:id="@+id/btIngresar"
@@ -131,7 +129,7 @@
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputPassword"
-        tools:ignore="MissingConstraints" />
+         />
 
     <TextView
         android:id="@+id/txtConectarseRedes"
@@ -148,7 +146,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btIngresar"
         app:layout_constraintVertical_bias="0.0"
-        tools:ignore="MissingConstraints" />
+         />
 
     <Button
         android:id="@+id/btTwitter"
@@ -164,7 +162,7 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtConectarseRedes"
-        tools:ignore="MissingConstraints" />
+        />
 
     <Button
         android:id="@+id/btFacebook"
@@ -176,7 +174,7 @@
         android:text="@string/facebook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btIngresar"
-        tools:ignore="MissingConstraints" />
+        />
 
     <TextView
         android:id="@+id/olvidoPassword"
@@ -185,11 +183,10 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="28dp"
-        android:clickable="true"
         android:text="@string/recuperar_passwrod"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btTwitter"
-        tools:ignore="MissingConstraints" />
+        />
 
     <TextView
         android:id="@+id/Regristrar"
@@ -203,6 +200,6 @@
         app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toEndOf="@+id/olvidoPassword"
         app:layout_constraintTop_toBottomOf="@+id/btFacebook"
-        tools:ignore="MissingConstraints" />
+         />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

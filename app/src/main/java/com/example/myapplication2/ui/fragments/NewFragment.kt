@@ -1,5 +1,6 @@
 package com.example.myapplication2.ui.fragments
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,13 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication2.R
+import com.example.myapplication2.data.marvel.MarvelChars
 import com.example.myapplication2.databinding.FragmentNewBinding
 import com.example.myapplication2.logic.lists.ListItems
+import com.example.myapplication2.ui.activities.DetailsMarverItems
+import com.example.myapplication2.ui.activities.MainActivity
 import com.example.myapplication2.ui.adapters.MarvelAdapter
+import kotlinx.coroutines.MainScope
 
 /**
  * A simple [Fragment] subclass.
@@ -45,7 +50,26 @@ class NewFragment : Fragment() {
         binding.spinner .adapter = adapter
         //binding.listwiew1.adapter = adapter
 
-        val rvAdapter = MarvelAdapter(ListItems().returnMarvelChars())
+
+        chargeDaraRv()
+
+        binding.rvSwipe.setOnRefreshListener {
+            chargeDaraRv()
+            binding.rvSwipe.isRefreshing=false
+        }
+
+
+
+    }
+    fun sendMarvelItem(item: MarvelChars){
+        val i = Intent(requireActivity(), DetailsMarverItems::class.java)
+        i.putExtra("name", item)
+        startActivity(i);
+    }
+
+
+    fun chargeDaraRv(){
+        val rvAdapter = MarvelAdapter(ListItems().returnMarvelChars()) { sendMarvelItem(it) }
         val rvMarvel = binding.rvMarvelChars
 
         rvMarvel.adapter=rvAdapter
@@ -54,9 +78,6 @@ class NewFragment : Fragment() {
             LinearLayoutManager.VERTICAL,
             false
         )
-
     }
-
-
 
 }
