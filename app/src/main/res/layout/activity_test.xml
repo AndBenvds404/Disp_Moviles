@@ -6,29 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.activities.TestActivity">
 
+
     <Button
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
-        android:layout_marginTop="156dp"
+        android:layout_marginTop="16dp"
         android:layout_marginEnd="170dp"
         android:text="Button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="398dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="140dp"
-        android:gravity="center"
-        android:text="Segunda Activity"
-        android:textSize="25dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.461"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -45,12 +33,13 @@
 
     <FrameLayout
         android:id="@+id/fragment1"
-        android:layout_width="409dp"
-        android:layout_height="259dp"
+        android:layout_width="match_parent"
+        android:layout_height="577dp"
         app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
         tools:ignore="MissingConstraints">
 
     </FrameLayout>

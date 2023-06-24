@@ -8,15 +8,20 @@ import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication2.R
 import com.example.myapplication2.data.marvel.MarvelChars
 import com.example.myapplication2.databinding.FragmentNewBinding
+import com.example.myapplication2.logic.jikanLogic.JikanAnimeLogic
 import com.example.myapplication2.logic.lists.ListItems
 import com.example.myapplication2.ui.activities.DetailsMarverItems
 import com.example.myapplication2.ui.activities.MainActivity
 import com.example.myapplication2.ui.adapters.MarvelAdapter
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 /**
  * A simple [Fragment] subclass.
@@ -68,16 +73,26 @@ class NewFragment : Fragment() {
     }
 
 
-    fun chargeDaraRv(){
-        val rvAdapter = MarvelAdapter(ListItems().returnMarvelChars()) { sendMarvelItem(it) }
-        val rvMarvel = binding.rvMarvelChars
+    fun chargeDaraRv() {
 
-        rvMarvel.adapter=rvAdapter
-        rvMarvel.layoutManager = LinearLayoutManager(
-            requireActivity(),
-            LinearLayoutManager.VERTICAL,
-            false
-        )
+        lifecycleScope.launch(){
+        val rvAdapter = MarvelAdapter(
+            JikanAnimeLogic().getAllAnimes()
+        ) {
+            sendMarvelItem(it)
+        }
+
+            withContext(Dispatchers.Main){
+                with(binding.rvMarvelChars){
+
+                    this.adapter = rvAdapter
+                    this.layoutManager = LinearLayoutManager(
+                        requireActivity(),
+                        LinearLayoutManager.VERTICAL,
+                        false)
+            }
+            }
+        }
     }
 
 }
