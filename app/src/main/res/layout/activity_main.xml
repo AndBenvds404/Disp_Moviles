@@ -3,12 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".ui.activities.MainActivity">
 
-
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Hello World!"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <ImageView
         android:id="@+id/logo"
         android:layout_width="147dp"
@@ -24,12 +29,8 @@
     <TextView
         android:id="@+id/tituloApp"
         style="@style/tituloApp"
-
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginLeft"
-        android:layout_marginRight="@dimen/marginRight"
-
         android:layout_marginTop="16dp"
         android:text="@string/titulo"
         app:layout_constraintEnd_toEndOf="parent"
@@ -41,103 +42,90 @@
     <TextView
         android:id="@+id/txtBienvenida"
         style="@style/subTextos"
+        android:layout_width="220dp"
 
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginLeft"
-        android:layout_marginRight="@dimen/marginRight"
-
+        android:layout_height="26dp"
         android:layout_marginTop="16dp"
         android:text="@string/bienvenida"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.366"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tituloApp"
-        />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtCorreo"
         style="@style/loginTextos"
-
-        android:layout_marginTop="28dp"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginLeft"
-        android:layout_marginRight="@dimen/marginRight"
+        android:layout_marginTop="28dp"
         android:text="@string/email"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.189"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtBienvenida"
-         />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtPassword"
         style="@style/loginTextos"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginLeft"
-        android:layout_marginRight="@dimen/marginRight"
         android:layout_marginTop="68dp"
         android:text="@string/password"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.203"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtCorreo"
-         />
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/inputPassword"
         style="@style/credenciales"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginLeft"
-        android:layout_marginRight="@dimen/marginRight"
+        android:layout_width="280dp"
+        android:layout_height="42dp"
         android:layout_marginTop="132dp"
+        android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.526"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtBienvenida"
-         />
+        tools:ignore="MissingConstraints" />
 
     <EditText
         android:id="@+id/inputEmail"
+
         style="@style/credenciales"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginLeft"
-        android:layout_marginRight="@dimen/marginRight"
+        android:layout_width="281dp"
+        android:layout_height="40dp"
         android:layout_marginTop="44dp"
+        android:ems="10"
         android:inputType="textEmailAddress"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.538"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtBienvenida"
-         />
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btIngresar"
         style="@style/btIngresar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginLeft"
-        android:layout_marginRight="@dimen/marginRight"
+        android:layout_width="272dp"
+        android:layout_height="47dp"
         android:layout_marginTop="60dp"
         android:text="@string/ingresar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/inputPassword"
-         />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/txtConectarseRedes"
         style="@style/subTextos"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/marginLeft"
-        android:layout_marginRight="@dimen/marginRight"
         android:layout_marginTop="19dp"
         android:text="@string/opcionRedes"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -146,35 +134,32 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btIngresar"
         app:layout_constraintVertical_bias="0.0"
-         />
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btTwitter"
         style="@style/btTwitter"
-        android:layout_width="142dp"
-        android:layout_height="48dp"
-        android:layout_marginLeft="@dimen/marginLeft"
-        android:layout_marginTop="16dp"
-        android:layout_marginRight="@dimen/marginRight"
-        android:drawableLeft="@drawable/twitterlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
         android:text="@string/twitter"
         app:layout_constraintEnd_toStartOf="@+id/btFacebook"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.574"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/txtConectarseRedes"
-        />
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/btFacebook"
         style="@style/btFacebook"
-        android:drawableLeft="@drawable/fblogo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="56dp"
-        android:layout_marginEnd="52dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginEnd="80dp"
         android:text="@string/facebook"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btIngresar"
-        />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/olvidoPassword"
@@ -183,10 +168,11 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="56dp"
         android:layout_marginTop="28dp"
+        android:clickable="true"
         android:text="@string/recuperar_passwrod"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btTwitter"
-        />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/Regristrar"
@@ -200,6 +186,5 @@
         app:layout_constraintHorizontal_bias="0.582"
         app:layout_constraintStart_toEndOf="@+id/olvidoPassword"
         app:layout_constraintTop_toBottomOf="@+id/btFacebook"
-         />
-
+        tools:ignore="MissingConstraints" />
 </androidx.constraintlayout.widget.ConstraintLayout>
