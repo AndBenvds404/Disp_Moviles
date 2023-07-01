@@ -10,11 +10,13 @@ import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication2.R
 import com.example.myapplication2.data.marvel.MarvelChars
 import com.example.myapplication2.databinding.FragmentNewBinding
 import com.example.myapplication2.logic.jikanLogic.JikanAnimeLogic
 import com.example.myapplication2.logic.lists.ListItems
+import com.example.myapplication2.logic.marvelLogic.MarvelLogic
 import com.example.myapplication2.ui.activities.DetailsMarverItems
 import com.example.myapplication2.ui.activities.MainActivity
 import com.example.myapplication2.ui.adapters.MarvelAdapter
@@ -31,15 +33,26 @@ import kotlinx.coroutines.withContext
 class NewFragment : Fragment() {
 
     private lateinit var binding: FragmentNewBinding
+    private lateinit var lmanager: LinearLayoutManager
+    private var  rvAdapter: MarvelAdapter = MarvelAdapter { {
+        sendMarvelItem(it)
+    } }
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View {
+    ): View? {
         // Inflate the layout for this fragment
         binding= FragmentNewBinding.inflate(  layoutInflater, container,
             false)
+
+        lmanager= LinearLayoutManager(
+            requireActivity(),
+            LinearLayoutManager.VERTICAL,
+            false
+        )
+
         return binding.root
     }
 
@@ -54,16 +67,39 @@ class NewFragment : Fragment() {
 
         binding.spinner .adapter = adapter
         //binding.listwiew1.adapter = adapter
-
-
-        chargeDaraRv()
+        chargeDaraRv("cap")
 
         binding.rvSwipe.setOnRefreshListener {
-            chargeDaraRv()
+            chargeDaraRv("cap")
             binding.rvSwipe.isRefreshing=false
         }
 
+        binding.rvMarvelChars.addOnScrollListener(
+            object :RecyclerView.OnScrollListener(){
+                override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
+                    super.onScrolled(recyclerView, dx, dy)
 
+                    if(dy>0){
+                        val v = lmanager.childCount
+                        val p = lmanager.findFirstVisibleItemPosition()
+                        val t = lmanager.itemCount
+
+                        if((v+p)>=t){
+                            lifecycleScope.launch(Dispatchers.IO){
+                                // val newItems = MarvelLogic().getAllMarvel(name = "spider", limit = 10)
+                                val newItems = JikanAnimeLogic().getAllAnimes()
+                                withContext(Dispatchers.Main){
+                                    rvAdapter.updateListItems(newItems)
+                                }
+
+
+                            }
+                        }
+                    }
+
+
+                }
+        })
 
     }
     fun sendMarvelItem(item: MarvelChars){
@@ -73,23 +109,19 @@ class NewFragment : Fragment() {
     }
 
 
-    fun chargeDaraRv() {
 
-        lifecycleScope.launch(){
-        val rvAdapter = MarvelAdapter(
-            JikanAnimeLogic().getAllAnimes()
-        ) {
-            sendMarvelItem(it)
-        }
+    fun chargeDaraRv(search:String) {
+
+        lifecycleScope.launch(Dispatchers.IO){
+        rvAdapter.items=JikanAnimeLogic().getAllAnimes()
+        // val newItems = MarvelLogic().getAllMarvel(name = search, limit = 20)
+
 
             withContext(Dispatchers.Main){
                 with(binding.rvMarvelChars){
 
                     this.adapter = rvAdapter
-                    this.layoutManager = LinearLayoutManager(
-                        requireActivity(),
-                        LinearLayoutManager.VERTICAL,
-                        false)
+                    this.layoutManager = lmanager
             }
             }
         }

@@ -7,7 +7,7 @@
             <gradient
                 android:angle="180"
                 android:startColor="@color/Skyblue"
-                android:endColor="@color/coral"
+                android:endColor="@color/material_dynamic_neutral_variant50"
                 android:type="sweep"
 
                 />
