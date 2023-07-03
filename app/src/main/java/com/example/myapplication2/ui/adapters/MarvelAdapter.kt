@@ -12,7 +12,8 @@ import com.squareup.picasso.Picasso
 
 class MarvelAdapter(
 
-                private var fnClick:(MarvelChars)-> Unit):RecyclerView.Adapter<MarvelAdapter.MarvelViewHolder>() {
+                private var fnClick:(MarvelChars)-> Unit):RecyclerView
+                .Adapter<MarvelAdapter.MarvelViewHolder>() {
  //unit es cuando una funcion no retorna nada
  var items: List<MarvelChars> = listOf()
 
@@ -51,10 +52,12 @@ class MarvelAdapter(
         val inflater = LayoutInflater.from(parent.context)
 
 
-        return MarvelViewHolder(inflater.inflate(R.layout.marvel_characters, parent, false))
+        return MarvelViewHolder(inflater.inflate(R.layout.marvel_characters, parent,
+            false))
     }
 
-    override fun onBindViewHolder(holder: MarvelViewHolder, position: Int) {
+    override fun onBindViewHolder(holder:
+                                  MarvelViewHolder, position: Int) {
         holder.render(items[position],fnClick)
     }
 
@@ -62,7 +65,7 @@ class MarvelAdapter(
     override fun getItemCount():Int = items.size
 
     fun updateListItems(newItems:List<MarvelChars>){
-        val nItems = items.plus(newItems)
+        items = items.plus(newItems)
         notifyDataSetChanged()
     }
 

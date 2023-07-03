@@ -34,9 +34,9 @@ class NewFragment : Fragment() {
 
     private lateinit var binding: FragmentNewBinding
     private lateinit var lmanager: LinearLayoutManager
-    private var  rvAdapter: MarvelAdapter = MarvelAdapter { {
+    private var  rvAdapter: MarvelAdapter = MarvelAdapter {
         sendMarvelItem(it)
-    } }
+    }
 
 
     override fun onCreateView(
