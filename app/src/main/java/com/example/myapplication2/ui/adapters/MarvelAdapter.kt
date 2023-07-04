@@ -65,7 +65,12 @@ class MarvelAdapter(
     override fun getItemCount():Int = items.size
 
     fun updateListItems(newItems:List<MarvelChars>){
-        items = items.plus(newItems)
+        items = this.items.plus(newItems)
+        notifyDataSetChanged()
+    }
+
+    fun replaceItemsAdapter(newItems:List<MarvelChars>){
+        items = newItems
         notifyDataSetChanged()
     }
 

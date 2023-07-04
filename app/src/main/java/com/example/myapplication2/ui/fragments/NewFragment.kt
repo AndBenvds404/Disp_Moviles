@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.LinearLayout
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -34,6 +35,8 @@ class NewFragment : Fragment() {
 
     private lateinit var binding: FragmentNewBinding
     private lateinit var lmanager: LinearLayoutManager
+    private var page = 1
+    private lateinit var marvelCharchItems : MutableList<MarvelChars>
     private var  rvAdapter: MarvelAdapter = MarvelAdapter {
         sendMarvelItem(it)
     }
@@ -101,6 +104,15 @@ class NewFragment : Fragment() {
                 }
         })
 
+        binding.txtFilter.addTextChangedListener{filterText->
+
+            val newItems = marvelCharchItems.filter { items->
+                items.name.contains(filterText.toString())
+            }
+
+            rvAdapter.replaceItemsAdapter(newItems)
+        }
+
     }
     fun sendMarvelItem(item: MarvelChars){
         val i = Intent(requireActivity(), DetailsMarverItems::class.java)
@@ -113,17 +125,22 @@ class NewFragment : Fragment() {
     fun chargeDaraRv(search:String) {
 
         lifecycleScope.launch(Dispatchers.IO){
+            var marvelCharchItems = MarvelLogic().getAllMarvel(
+                "spider", page*2
+            )
         rvAdapter.items=JikanAnimeLogic().getAllAnimes()
         // val newItems = MarvelLogic().getAllMarvel(name = search, limit = 20)
 
 
             withContext(Dispatchers.Main){
+
                 with(binding.rvMarvelChars){
 
                     this.adapter = rvAdapter
                     this.layoutManager = lmanager
             }
             }
+            page++
         }
     }
 
