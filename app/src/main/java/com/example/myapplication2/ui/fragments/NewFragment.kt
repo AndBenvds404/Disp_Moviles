@@ -35,11 +35,10 @@ class NewFragment : Fragment() {
 
     private lateinit var binding: FragmentNewBinding
     private lateinit var lmanager: LinearLayoutManager
-    private var page = 1
-    private lateinit var marvelCharchItems : MutableList<MarvelChars>
-    private var  rvAdapter: MarvelAdapter = MarvelAdapter {
-        sendMarvelItem(it)
-    }
+
+    private  var marvelCharsItems : MutableList<MarvelChars> =  mutableListOf<MarvelChars>()
+
+    private  var  rvAdapter: MarvelAdapter =MarvelAdapter{sendMarvelItem(it)}
 
 
     override fun onCreateView(
@@ -70,10 +69,10 @@ class NewFragment : Fragment() {
 
         binding.spinner .adapter = adapter
         //binding.listwiew1.adapter = adapter
-        chargeDaraRv("cap")
+        chargeDaraRv()
 
         binding.rvSwipe.setOnRefreshListener {
-            chargeDaraRv("cap")
+            chargeDaraRv()
             binding.rvSwipe.isRefreshing=false
         }
 
@@ -106,42 +105,50 @@ class NewFragment : Fragment() {
 
         binding.txtFilter.addTextChangedListener{filterText->
 
-            val newItems = marvelCharchItems.filter { items->
-                items.name.contains(filterText.toString())
+            val newItems = marvelCharsItems.filter { items->
+                items.name.lowercase().contains(filterText.toString().lowercase())
             }
 
             rvAdapter.replaceItemsAdapter(newItems)
         }
 
     }
+
+
+
+
+    fun chargeDaraRv() {
+
+        lifecycleScope.launch(Dispatchers.Main){
+       // rvAdapter.items=JikanAnimeLogic().getAllAnimes()
+            var marvelCharsItems = withContext(Dispatchers.IO){//abro la ejecucion asincrona
+                return@withContext ( MarvelLogic().getAllMarvel( //retornamos al contexto y rellene la variable
+                    "Spider", 20
+                ) )
+            }
+
+
+            rvAdapter = MarvelAdapter (
+                marvelCharsItems,
+                fnClick = {sendMarvelItem(it)})
+
+                binding.rvMarvelChars.apply{
+                    this.adapter = rvAdapter
+                    this.layoutManager = lmanager
+
+            }
+
+        }
+
+
+
+    }
+
+
     fun sendMarvelItem(item: MarvelChars){
         val i = Intent(requireActivity(), DetailsMarverItems::class.java)
         i.putExtra("name", item)
         startActivity(i);
-    }
-
-
-
-    fun chargeDaraRv(search:String) {
-
-        lifecycleScope.launch(Dispatchers.IO){
-            var marvelCharchItems = MarvelLogic().getAllMarvel(
-                "spider", page*2
-            )
-        rvAdapter.items=JikanAnimeLogic().getAllAnimes()
-        // val newItems = MarvelLogic().getAllMarvel(name = search, limit = 20)
-
-
-            withContext(Dispatchers.Main){
-
-                with(binding.rvMarvelChars){
-
-                    this.adapter = rvAdapter
-                    this.layoutManager = lmanager
-            }
-            }
-            page++
-        }
     }
 
 }

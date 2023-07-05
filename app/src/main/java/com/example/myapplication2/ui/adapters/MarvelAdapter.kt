@@ -11,11 +11,11 @@ import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
 class MarvelAdapter(
-
-                private var fnClick:(MarvelChars)-> Unit):RecyclerView
+    private var items: List<MarvelChars> = listOf(),
+    private var fnClick:(MarvelChars)-> Unit):RecyclerView
                 .Adapter<MarvelAdapter.MarvelViewHolder>() {
  //unit es cuando una funcion no retorna nada
- var items: List<MarvelChars> = listOf()
+
 
     class MarvelViewHolder (view:View): RecyclerView.ViewHolder(view){
 
