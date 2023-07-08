@@ -16,6 +16,7 @@ object ApiConnection {
 
     private val API_JIKAN = "https://api.jikan.moe/v4/"
     private val API_MARVEL = "https://gateway.marvel.com/v1/public/"
+    private val API_PETS = "https://gateway.marvel.com/v1/public/"
 
     @SuppressLint("SuspiciousIndentation")
     private fun getConnection(base:String): Retrofit {

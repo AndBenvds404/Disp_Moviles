@@ -11,66 +11,54 @@ import com.google.android.material.snackbar.Snackbar
 import com.squareup.picasso.Picasso
 
 class MarvelAdapter(
-    private var items: List<MarvelChars> = listOf(),
-    private var fnClick:(MarvelChars)-> Unit):RecyclerView
-                .Adapter<MarvelAdapter.MarvelViewHolder>() {
- //unit es cuando una funcion no retorna nada
-
-
-    class MarvelViewHolder (view:View): RecyclerView.ViewHolder(view){
+    private var fnClick: (MarvelChars) -> Unit //no devuelve nada
+) :
+    RecyclerView.Adapter<MarvelAdapter.MarvelViewHolder>() {
+    var items: List<MarvelChars> = listOf()
+    class MarvelViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
         private val binding: MarvelCharactersBinding = MarvelCharactersBinding.bind(view)
 
-        fun render(item: MarvelChars,
-                   fnClick:(MarvelChars)-> Unit){
 
-            binding.imgMarvel.bringToFront()
-            binding.txtNameMarvl.text = item.name
-            binding.txtComic.text = item.comic
+
+            fun render(
+        item: MarvelChars,
+        fnClick: (MarvelChars) -> Unit
+        ) {
+            binding.txtNameMarvl.text = item.name;
+            binding.txtComic.text = item.comic;
             Picasso.get().load(item.image).into(binding.imgMarvel)
-
-
-           /* binding.imgMarvel.setOnClickListener{
-                Snackbar.make(binding.imgMarvel,
-                    item.name,
-                    Snackbar.LENGTH_SHORT)
-                    .show()
-                        }*/
             itemView.setOnClickListener{
+                //Snackbar.make(binding.imgMarvel, item.name, Snackbar.LENGTH_SHORT).show()
                 fnClick(item)
             }
-
         }
     }
-
-
-
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
     ): MarvelAdapter.MarvelViewHolder {
         val inflater = LayoutInflater.from(parent.context)
-
-
-        return MarvelViewHolder(inflater.inflate(R.layout.marvel_characters, parent,
-            false))
+        return MarvelViewHolder(
+            inflater.inflate(
+                R.layout.marvel_characters,
+                parent, false
+            )
+        )
+    }
+    override fun onBindViewHolder(holder: MarvelAdapter.MarvelViewHolder, position: Int) {
+        holder.render(items[position], fnClick)
     }
 
-    override fun onBindViewHolder(holder:
-                                  MarvelViewHolder, position: Int) {
-        holder.render(items[position],fnClick)
-    }
+    override fun getItemCount(): Int = items.size
 
-
-    override fun getItemCount():Int = items.size
-
-    fun updateListItems(newItems:List<MarvelChars>){
-        items = this.items.plus(newItems)
+    fun updateListAdapter(newitems : List<MarvelChars>){
+        this.items = this.items.plus(newitems)
         notifyDataSetChanged()
     }
 
-    fun replaceItemsAdapter(newItems:List<MarvelChars>){
-        items = newItems
+    fun replaceListAdapter(newitems : List<MarvelChars>){
+        this.items = newitems
         notifyDataSetChanged()
     }
 
