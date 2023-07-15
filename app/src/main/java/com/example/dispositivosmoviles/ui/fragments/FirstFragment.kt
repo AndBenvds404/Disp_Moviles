@@ -2,6 +2,7 @@ package com.example.dispositivosmoviles.ui.fragments
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -25,13 +26,15 @@ import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.lang.RuntimeException
 import kotlin.collections.mutableListOf
 
 
 class FirstFragment : Fragment() {
 
     private lateinit var binding: FragmentFirstBinding;
-    private var rvAdapter: MarvelAdapter = MarvelAdapter { sendMarvelItem(it)  }
+
+    private var rvAdapter: MarvelAdapter = MarvelAdapter( { sendMarvelItem(it)}, {saveMarveItem(it) })
     private lateinit var lManager: LinearLayoutManager
     private lateinit var gManager: GridLayoutManager
     private val limit = 99
@@ -146,10 +149,18 @@ class FirstFragment : Fragment() {
 
 
     fun saveMarveItem(item:MarvelChars):Boolean{
+
         lifecycleScope.launch(Dispatchers.Main){
-            DispositivosMoviles.getDbInstance().marvelDao().insertMarvelCharacter(
-                listOf(item.getMarvelCharsDB())
-                    )
+        Log.d("","Guardando")
+            try {
+                DispositivosMoviles.getDbInstance().marvelDao().insertMarvelCharacter(
+                    listOf(item.getMarvelCharsDB())
+
+                )
+            } catch (e: Exception) {
+                throw RuntimeException(e.message)
+            }
+
         }
         return true
     }

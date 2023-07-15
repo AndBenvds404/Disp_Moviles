@@ -15,16 +15,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.dispositivosmoviles.R
 import com.example.dispositivosmoviles.databinding.FragmentSecondBinding
 import com.example.dispositivosmoviles.logic.data.MarvelChars
+import com.example.dispositivosmoviles.logic.data.getMarvelCharsDB
 import com.example.dispositivosmoviles.logic.marvelLogic.MarvelLogic
 import com.example.dispositivosmoviles.ui.activities.DetailsMarvelItem
 import com.example.dispositivosmoviles.ui.adapters.MarvelAdapter
+import com.example.dispositivosmoviles.ui.utilities.DispositivosMoviles
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SecondFragment : Fragment() {
     private lateinit var binding: FragmentSecondBinding;
-    private var rvAdapter: MarvelAdapter = MarvelAdapter { sendMarvelItem(it) }
+    private var rvAdapter: MarvelAdapter = MarvelAdapter( { sendMarvelItem(it)}, {saveMarveItem(it) })
     private lateinit var lManager: LinearLayoutManager
     private lateinit var gManager: GridLayoutManager
     private var page = 1
@@ -99,6 +101,15 @@ class SecondFragment : Fragment() {
         val i = Intent(requireActivity(), DetailsMarvelItem::class.java)
         i.putExtra("item", item)//mandamos los items a la otra activity
         startActivity(i)
+    }
+
+    fun saveMarveItem(item:MarvelChars):Boolean{
+        lifecycleScope.launch(Dispatchers.Main){
+            DispositivosMoviles.getDbInstance().marvelDao().insertMarvelCharacter(
+                listOf(item.getMarvelCharsDB())
+            )
+        }
+        return true
     }
 
 /*

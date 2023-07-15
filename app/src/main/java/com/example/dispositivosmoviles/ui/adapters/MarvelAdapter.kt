@@ -57,7 +57,7 @@ class MarvelAdapter(
     }
 
     override fun onBindViewHolder(holder: MarvelAdapter.MarvelViewHolder, position: Int) {
-        holder.render(items[position], fnClick,fnSave)
+        holder.render(items[position], fnClick, fnSave)
     }
 
     override fun getItemCount(): Int = items.size
