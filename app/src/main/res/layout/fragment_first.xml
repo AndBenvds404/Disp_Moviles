@@ -106,8 +106,8 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvMarvelChars"
-                android:layout_width="327dp"
-                android:layout_height="307dp" />
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
 
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 

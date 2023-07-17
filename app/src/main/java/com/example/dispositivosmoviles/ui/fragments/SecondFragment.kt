@@ -26,7 +26,7 @@ import kotlinx.coroutines.withContext
 
 class SecondFragment : Fragment() {
     private lateinit var binding: FragmentSecondBinding;
-    private var rvAdapter: MarvelAdapter = MarvelAdapter( { sendMarvelItem(it)}, {saveMarveItem(it) })
+    private var rvAdapter: MarvelAdapter = MarvelAdapter( { item ->sendMarvelItem(item)}, {item -> saveMarvelItem(item) })
     private lateinit var lManager: LinearLayoutManager
     private lateinit var gManager: GridLayoutManager
     private var page = 1
@@ -103,13 +103,18 @@ class SecondFragment : Fragment() {
         startActivity(i)
     }
 
-    fun saveMarveItem(item:MarvelChars):Boolean{
+    fun saveMarvelItem(item: MarvelChars) :Boolean{
+        //Intent(contexto de la activity, .class de la activity)
         lifecycleScope.launch(Dispatchers.Main){
-            DispositivosMoviles.getDbInstance().marvelDao().insertMarvelCharacter(
-                listOf(item.getMarvelCharsDB())
-            )
+            withContext(Dispatchers.IO){
+                DispositivosMoviles
+                    .getDbInstance()
+                    .marvelDao()
+                    .insertMarvelCharacter(listOf( item.getMarvelCharsDB()))
+            }
         }
-        return true
+
+        return item !== null
     }
 
 /*

@@ -26,7 +26,7 @@ class MarvelAdapter(
             fnSave: (MarvelChars) -> Boolean
         ) {
             binding.txtName.text = item.name;
-            binding.txtComic.text = item.comic;
+            //binding.txtComic.text = item.comic;
             Picasso.get().load(item.image).into(binding.imgImage)
 
             itemView.setOnClickListener{

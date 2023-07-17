@@ -75,7 +75,8 @@ class MarvelLogic {
     suspend fun getInitChars(limit: Int, offset: Int): MutableList<MarvelChars>{
         var items = mutableListOf<MarvelChars>()
         try{
-            var items = MarvelLogic().getAllMarvelCharDB().toMutableList()
+            items = MarvelLogic().getAllMarvelCharDB().toMutableList()
+
             if (items.isEmpty()) {
                 items = (MarvelLogic().getAllMarvelChars(
                     offset=offset, limit=limit

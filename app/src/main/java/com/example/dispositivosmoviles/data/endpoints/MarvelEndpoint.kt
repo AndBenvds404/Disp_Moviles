@@ -13,7 +13,7 @@ interface MarvelEndpoint {
         @Query("limit") limit : Int,
         @Query("ts") ts : String = "uce1",//"uce",
         @Query("apikey") apikey : String = "48ed26ff242038147ce24450236a7ec2",
-        @Query("hash") hash : String = "e39fb11ad271b98d8cac028063ce639b"//"f00af94ad24dd1d56b2ea26ae903030e"
+        @Query("hash") hash : String = "f00af94ad24dd1d56b2ea26ae903030e"//"f00af94ad24dd1d56b2ea26ae903030e"
     ) : Response<MarvelApiChars>
 
 

@@ -1,15 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
 
     >
 
-     <androidx.constraintlayout.widget.ConstraintLayout
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+
 
         <LinearLayout
 
@@ -43,46 +41,45 @@
 
             </ImageView>
 
-            <TextView
-                android:id="@+id/marveltitle"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="10dp"
-                android:fontFamily="@font/roboto_light"
-                android:textAlignment="center"
-                android:textColor="@color/principal_color_dm"
-                android:textSize="24sp"
-                android:textStyle="bold">
+                <TextView
+                    android:id="@+id/marveltitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginHorizontal="10dp"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/roboto_light"
+                    android:textAlignment="center"
+                    android:textColor="@color/principal_color_dm"
+                    android:textSize="24sp"
+                    android:textStyle="bold">
 
 
-            </TextView>
+                </TextView>
 
-            <TextView
-                android:id="@+id/txtDescription"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/dimLogin"
-                android:layout_marginEnd="@dimen/dimLogin"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="15dp"
-                android:gravity="center"
-                android:fontFamily="@font/roboto"
-                android:textColor="@color/white"
-                android:textSize="16sp"
-                android:textStyle="italic" />
+                <TextView
+                    android:id="@+id/txtDescription"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/dimLogin"
+                    android:layout_marginEnd="@dimen/dimLogin"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/roboto"
+                    android:textColor="@color/white"
+                    android:textSize="16sp"
+                    android:textStyle="italic" />
 
-        </LinearLayout>
+
          <com.google.android.material.floatingactionbutton.FloatingActionButton
              android:layout_width="62dp"
              android:layout_height="62dp"
              android:layout_marginEnd="28dp"
              app:layout_constraintBottom_toBottomOf="parent"
-
              app:layout_constraintEnd_toEndOf="parent"
              >
 
          </com.google.android.material.floatingactionbutton.FloatingActionButton>
-     </androidx.constraintlayout.widget.ConstraintLayout>
-</ScrollView>
+        </LinearLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>

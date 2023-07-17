@@ -9,6 +9,16 @@ import android.widget.Button
 import android.widget.TextView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import java.util.UUID
+import androidx.datastore.core.DataStore
+import androidx.datastore.preferences.core.Preferences
+import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.stringPreferencesKey
+import androidx.datastore.preferences.preferencesDataStore
+import androidx.lifecycle.lifecycleScope
+import android.content.Context
 import com.example.dispositivosmoviles.R
 import com.example.dispositivosmoviles.databinding.ActivityMainBinding
 import com.example.dispositivosmoviles.ui.validator.LoginValidator
@@ -16,6 +26,9 @@ import com.example.dispositivosmoviles.ui.validator.LoginValidator
 
 import com.google.android.material.snackbar.Snackbar
 
+
+val Context.dataStore: DataStore<Preferences>
+        by preferencesDataStore(name = "settings")
 class MainActivity : AppCompatActivity() {
 
     //Para enalzar y utilizar el Binding
@@ -41,6 +54,11 @@ class MainActivity : AppCompatActivity() {
             )
 
             if(check){
+
+                lifecycleScope.launch(Dispatchers.IO){
+                    saveDataStore(binding.txtName.text.toString())
+                }
+
                 var intent = Intent(this, PrincipalActivity::class.java)
                 intent.putExtra("var1", binding.txtName.text.toString())
                 intent.putExtra("var2", 2)
@@ -71,5 +89,14 @@ class MainActivity : AppCompatActivity() {
         initClass()
         llamar()
 
+    }
+
+    private suspend fun saveDataStore(stringData: String){
+        dataStore.edit {prefs ->
+            prefs[stringPreferencesKey("usuario")] = stringData
+            prefs[stringPreferencesKey("session")] = UUID.randomUUID().toString()
+            prefs[stringPreferencesKey("email")] = "dispositivosmoviles@uce.edu.ec"
+
+        }
     }
 }

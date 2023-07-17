@@ -5,6 +5,7 @@ import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.util.Log
 
+
 class Metodos {
 
      //Las clases solo deben tener funciones y no el binding
