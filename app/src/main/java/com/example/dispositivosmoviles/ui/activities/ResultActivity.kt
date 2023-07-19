@@ -1,5 +1,6 @@
 package com.example.dispositivosmoviles.ui.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.example.dispositivosmoviles.R
@@ -19,11 +20,15 @@ class ResultActivity : AppCompatActivity() {
     override fun onStart() {
         super.onStart()
         binding.btnResultOk.setOnClickListener{
-            setResult(RESULT_OK)//nos dice cual es el resultado final
+            val i = Intent()
+            i.putExtra("result", "Resultado exitoso")
+            setResult(RESULT_OK, i)//nos dice cual es el resultado final
             finish()//llama al metodo onDestroy para borrar
         }
         binding.btnResultFalse.setOnClickListener{
-            setResult(RESULT_CANCELED)
+            val i = Intent()
+            i.putExtra("result", "Resultado fallido")
+            setResult(RESULT_CANCELED, i)
             finish()
 
 

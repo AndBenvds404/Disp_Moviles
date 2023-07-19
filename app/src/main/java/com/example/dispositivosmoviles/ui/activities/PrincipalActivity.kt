@@ -66,7 +66,8 @@ class PrincipalActivity : AppCompatActivity() {
                     FragmentsManager().replaceFragment(supportFragmentManager, binding.frmContainter.id, SecondFragment())
                     true
                 }
-                R.id.menu_item_settings -> { FragmentsManager().replaceFragment(supportFragmentManager, binding.frmContainter.id, ThirdFragment())
+                R.id.menu_item_settings -> {
+                    FragmentsManager().replaceFragment(supportFragmentManager, binding.frmContainter.id, ThirdFragment())
                     true
                 }
 

@@ -20,6 +20,7 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import android.content.Context
+import android.speech.RecognizerIntent
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult.*
@@ -29,6 +30,7 @@ import com.example.dispositivosmoviles.ui.validator.LoginValidator
 
 
 import com.google.android.material.snackbar.Snackbar
+import java.util.Locale
 import kotlin.math.log
 
 
@@ -95,27 +97,96 @@ class MainActivity : AppCompatActivity() {
             ActivityResultContracts.StartActivityForResult()){
             resultActivity->
 
-            when (resultActivity.resultCode){
+
+
+            val sn = Snackbar.make(binding.txtName,
+                "",Snackbar.LENGTH_LONG)
+
+
+
+            var message = when (resultActivity.resultCode) {
                 RESULT_OK->{
-                    Log.d("UCE", "resultado exitoso")
-                    Snackbar.make(binding.txtName,"resultado exitoso",Snackbar.LENGTH_LONG)
+                    sn.setBackgroundTint(resources.getColor(R.color.red))
+                    resultActivity.data?.getStringExtra("result").orEmpty()
+                   "resultado Exitoso"
+
+
 
                 }
-                RESULT_CANCELED->{
-                    Log.d("UCE", "resultado fallido")
-                    Snackbar.make(binding.txtName,"resultado fallido",Snackbar.LENGTH_LONG)
+                RESULT_CANCELED->{ "resultado fallido"
+                    sn.setBackgroundTint(resources.getColor(R.color.blue))
+                    resultActivity.data?.getStringExtra("result").orEmpty()
+
                 }
-                else->{Log.d("UCE", "resultado dudoso")
-                    Snackbar.make(binding.txtName,"resultado dudoso",Snackbar.LENGTH_LONG)
+                else->{
+                    "resultado dudoso"
+
                 }
 
             }
+            sn.setText(message)
+             sn.show()
+
 
         }
         binding.btnFacebook.setOnClickListener{
             val resIntent = Intent(this, ResultActivity::class.java)
             appResultLocal.launch(resIntent)
 
+        }
+
+
+        val speechToText = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()){
+            activityResult->
+
+            val sn = Snackbar.make(binding.txtName, "", Snackbar.LENGTH_LONG)
+            var message = ""
+            when(activityResult.resultCode){
+                RESULT_OK->{
+                    val msg = activityResult.data?.getStringArrayListExtra(
+                            RecognizerIntent.EXTRA_RESULTS).toString()
+
+                    if(msg.isNotEmpty()){
+                        val intent = Intent(
+                            Intent.ACTION_WEB_SEARCH,
+                        )
+                        intent.setClassName(
+                            "com.google.android.googlequicksearchbox",
+                            "com.google.android.googlequicksearchbox.SearchActivity"
+                        )
+                        intent.putExtra(SearchManager.QUERY,msg)
+                        startActivity(intent)
+                    }
+                }
+
+                RESULT_CANCELED->{
+
+                }else ->{
+                    message = "ocurrio un eerro"
+                    sn.setBackgroundTint(resources.getColor(R.color.orange))
+                }
+            }
+            sn.setText(message)
+            sn.show()
+        }
+    binding.btnFacebook.setOnClickListener(){
+        val intentSpeach = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+            intentSpeach.putExtra(
+                RecognizerIntent.EXTRA_LANGUAGE_MODEL,
+                RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
+            )
+            intentSpeach.putExtra(
+
+                RecognizerIntent.EXTRA_LANGUAGE,
+                Locale.getDefault()
+            )
+
+            intentSpeach.putExtra(
+                RecognizerIntent.EXTRA_PROMPT,
+            "DI algo plox"
+            )
+            speechToText.launch(intentSpeach)
         }
     }
 
