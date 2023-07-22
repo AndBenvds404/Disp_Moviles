@@ -76,4 +76,7 @@ dependencies {
 
     //Preferences Datastore
     implementation("androidx.datastore:datastore-preferences:1.0.0")
+
+    //location
+    implementation("com.google.android.gms:play-services-location:21.0.1")
 }

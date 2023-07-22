@@ -1,6 +1,9 @@
 package com.example.dispositivosmoviles.ui.activities
 
+import android.Manifest
+import android.annotation.SuppressLint
 import android.app.SearchManager
+import android.content.ContentProviderClient
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -20,13 +23,18 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import android.content.Context
+import android.location.Geocoder
 import android.speech.RecognizerIntent
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.result.contract.ActivityResultContracts.StartActivityForResult.*
+import androidx.core.content.PermissionChecker.PermissionResult
+
 import com.example.dispositivosmoviles.R
 import com.example.dispositivosmoviles.databinding.ActivityMainBinding
 import com.example.dispositivosmoviles.ui.validator.LoginValidator
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
 
 
 import com.google.android.material.snackbar.Snackbar
@@ -36,23 +44,27 @@ import kotlin.math.log
 
 val Context.dataStore: DataStore<Preferences>
         by preferencesDataStore(name = "settings")
+
 class MainActivity : AppCompatActivity() {
 
     //Para enalzar y utilizar el Binding
     private lateinit var binding: ActivityMainBinding
-
+    private lateinit var fusedLocationProviderClient:FusedLocationProviderClient
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         //Los botones con binding
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
     }
 
     override fun onDestroy() {
         super.onDestroy()
     }
 
+    @SuppressLint("MissingPermission")
     private fun initClass() {
         binding.btnLogin.setOnClickListener {
 
@@ -81,8 +93,74 @@ class MainActivity : AppCompatActivity() {
 
         }
 
+        val locationContract = registerForActivityResult(ActivityResultContracts.RequestPermission()){
+                isGranted->
+
+
+
+            when (isGranted){
+
+                true ->{
+
+                    fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+                        it.longitude
+                        it.latitude
+
+                        val a = Geocoder(this)
+                        a.getFromLocation(it.latitude, it.longitude,1)
+                    }
+
+                /*
+                    val task = fusedLocationProviderClient.lastLocation
+                    task.addOnSuccessListener{
+                        if(task.result!=null){
+                            Snackbar.make(binding.txtName,
+                                "${it.latitude}, ${it.longitude}",
+                                Snackbar.LENGTH_LONG)
+                                .show()
+
+
+
+                        }else{
+                            Snackbar.make(binding.txtName,
+                                "Enciende el GPS Plox",
+                                Snackbar.LENGTH_LONG)
+                                .show()
+                        }
+                    }*/
+
+                }
+                false->{
+                    Snackbar.make(binding.txtName,
+                        "denegado permiso",
+                        Snackbar.LENGTH_LONG)
+                        .show()
+                }
+
+                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION
+                )->{
+                    Snackbar.make(binding.txtName,
+                        "ayudame a ayudarte",
+                        Snackbar.LENGTH_LONG)
+                        .show()
+
+                }
+
+
+
+
+            }
+
+
+
+        }
+
+
         binding.btnTwitter.setOnClickListener {
-            val intent = Intent(
+
+            locationContract.launch(Manifest.permission.ACCESS_FINE_LOCATION)
+
+            /*val intent = Intent(
                 Intent.ACTION_WEB_SEARCH,
             )
             intent.setClassName(
@@ -90,7 +168,7 @@ class MainActivity : AppCompatActivity() {
                 "com.google.android.googlequicksearchbox.SearchActivity"
             )
             intent.putExtra(SearchManager.QUERY,"Steam")
-            startActivity(intent)
+            startActivity(intent)*/
         }
 
         val appResultLocal = registerForActivityResult(
