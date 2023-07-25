@@ -2,6 +2,7 @@ package com.example.dispositivosmoviles.ui.activities
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.SearchManager
 import android.content.ContentProviderClient
 import android.content.Intent
@@ -24,6 +25,8 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.lifecycleScope
 import android.content.Context
 import android.location.Geocoder
+import android.location.Location
+import android.os.Looper
 import android.speech.RecognizerIntent
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
@@ -33,8 +36,13 @@ import androidx.core.content.PermissionChecker.PermissionResult
 import com.example.dispositivosmoviles.R
 import com.example.dispositivosmoviles.databinding.ActivityMainBinding
 import com.example.dispositivosmoviles.ui.validator.LoginValidator
+import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationCallback
+import com.google.android.gms.location.LocationRequest
+import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.Priority
 
 
 import com.google.android.material.snackbar.Snackbar
@@ -50,6 +58,96 @@ class MainActivity : AppCompatActivity() {
     //Para enalzar y utilizar el Binding
     private lateinit var binding: ActivityMainBinding
     private lateinit var fusedLocationProviderClient:FusedLocationProviderClient
+    private lateinit var locationRquest: LocationRequest
+    private lateinit var locationCallback: LocationCallback
+
+
+        @SuppressLint("MissingPermission")
+        private val locationContract = registerForActivityResult(ActivityResultContracts.RequestPermission()){
+                isGranted->
+
+
+               when (isGranted){
+
+               true ->{
+
+                   val task = fusedLocationProviderClient.lastLocation
+                   task.addOnSuccessListener { location ->
+                       fusedLocationProviderClient.requestLocationUpdates(
+                           locationRquest,
+                           locationCallback,
+                           Looper.getMainLooper()
+
+                       )
+                   }
+                       /* task.addOnSuccessListener {
+                            var alert = androidx.appcompat.app.AlertDialog.Builder(this )
+                            alert.apply{
+                                setTitle("Titulo alerta")
+                                setMessage("Existe un problema con el sistema de posicionacmiento")
+                                setPositiveButton("ok"){dialog,id->dialog.dismiss()
+                                }
+                                setCancelable(false)
+                        }.create()
+                            alert.show()
+                   }*/
+
+               }
+                   shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION
+                   )->{
+                       Snackbar.make(binding.txtName,
+                           "ayudame a ayudarte",
+                           Snackbar.LENGTH_LONG)
+                           .show()
+
+                   }
+
+                     false->{  Snackbar.make(binding.txtName,
+                       "denegado permiso",
+                       Snackbar.LENGTH_LONG)
+                       .show()
+                 }
+
+
+           }
+    }
+
+
+    val speechToText = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()){
+            activityResult->
+
+        val sn = Snackbar.make(binding.txtName, "", Snackbar.LENGTH_LONG)
+        var message = ""
+        when(activityResult.resultCode){
+            RESULT_OK->{
+                val msg = activityResult.data?.getStringArrayListExtra(
+                    RecognizerIntent.EXTRA_RESULTS).toString()
+
+                if(msg.isNotEmpty()){
+                    val intent = Intent(
+                        Intent.ACTION_WEB_SEARCH,
+                    )
+                    intent.setClassName(
+                        "com.google.android.googlequicksearchbox",
+                        "com.google.android.googlequicksearchbox.SearchActivity"
+                    )
+                    intent.putExtra(SearchManager.QUERY,msg)
+                    startActivity(intent)
+                }
+            }
+
+            RESULT_CANCELED->{
+
+            }else ->{
+            message = "ocurrio un eerro"
+            sn.setBackgroundTint(resources.getColor(R.color.orange))
+        }
+        }
+        sn.setText(message)
+        sn.show()
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -58,14 +156,38 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)
+
+        locationRquest = LocationRequest.Builder(
+            Priority.PRIORITY_HIGH_ACCURACY,1000
+        ).build()
+
+        locationCallback = object : LocationCallback(){
+            override fun onLocationResult(locationResult: LocationResult) {
+                super.onLocationResult(locationResult)
+
+                if(locationResult!=null){
+                    locationResult.locations.forEach{location ->
+                        Log.d("uce","ubicacion: ${location.latitude}," +
+                                "                       "+"${location.longitude}")
+                    }
+                }
+            }
+        }
     }
 
     override fun onDestroy() {
         super.onDestroy()
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        fusedLocationProviderClient.removeLocationUpdates(locationCallback)
     }
 
     @SuppressLint("MissingPermission")
     private fun initClass() {
+
         binding.btnLogin.setOnClickListener {
 
             val check = LoginValidator().checkLogin(
@@ -93,67 +215,7 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-        val locationContract = registerForActivityResult(ActivityResultContracts.RequestPermission()){
-                isGranted->
 
-
-
-            when (isGranted){
-
-                true ->{
-
-                    fusedLocationProviderClient.lastLocation.addOnSuccessListener {
-                        it.longitude
-                        it.latitude
-
-                        val a = Geocoder(this)
-                        a.getFromLocation(it.latitude, it.longitude,1)
-                    }
-
-                /*
-                    val task = fusedLocationProviderClient.lastLocation
-                    task.addOnSuccessListener{
-                        if(task.result!=null){
-                            Snackbar.make(binding.txtName,
-                                "${it.latitude}, ${it.longitude}",
-                                Snackbar.LENGTH_LONG)
-                                .show()
-
-
-
-                        }else{
-                            Snackbar.make(binding.txtName,
-                                "Enciende el GPS Plox",
-                                Snackbar.LENGTH_LONG)
-                                .show()
-                        }
-                    }*/
-
-                }
-                false->{
-                    Snackbar.make(binding.txtName,
-                        "denegado permiso",
-                        Snackbar.LENGTH_LONG)
-                        .show()
-                }
-
-                shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION
-                )->{
-                    Snackbar.make(binding.txtName,
-                        "ayudame a ayudarte",
-                        Snackbar.LENGTH_LONG)
-                        .show()
-
-                }
-
-
-
-
-            }
-
-
-
-        }
 
 
         binding.btnTwitter.setOnClickListener {
@@ -173,7 +235,7 @@ class MainActivity : AppCompatActivity() {
 
         val appResultLocal = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()){
-            resultActivity->
+                resultActivity->
 
 
 
@@ -186,7 +248,7 @@ class MainActivity : AppCompatActivity() {
                 RESULT_OK->{
                     sn.setBackgroundTint(resources.getColor(R.color.red))
                     resultActivity.data?.getStringExtra("result").orEmpty()
-                   "resultado Exitoso"
+                    "resultado Exitoso"
 
 
 
@@ -203,7 +265,7 @@ class MainActivity : AppCompatActivity() {
 
             }
             sn.setText(message)
-             sn.show()
+            sn.show()
 
 
         }
@@ -214,42 +276,9 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        val speechToText = registerForActivityResult(
-            ActivityResultContracts.StartActivityForResult()){
-            activityResult->
 
-            val sn = Snackbar.make(binding.txtName, "", Snackbar.LENGTH_LONG)
-            var message = ""
-            when(activityResult.resultCode){
-                RESULT_OK->{
-                    val msg = activityResult.data?.getStringArrayListExtra(
-                            RecognizerIntent.EXTRA_RESULTS).toString()
-
-                    if(msg.isNotEmpty()){
-                        val intent = Intent(
-                            Intent.ACTION_WEB_SEARCH,
-                        )
-                        intent.setClassName(
-                            "com.google.android.googlequicksearchbox",
-                            "com.google.android.googlequicksearchbox.SearchActivity"
-                        )
-                        intent.putExtra(SearchManager.QUERY,msg)
-                        startActivity(intent)
-                    }
-                }
-
-                RESULT_CANCELED->{
-
-                }else ->{
-                    message = "ocurrio un eerro"
-                    sn.setBackgroundTint(resources.getColor(R.color.orange))
-                }
-            }
-            sn.setText(message)
-            sn.show()
-        }
-    binding.btnFacebook.setOnClickListener(){
-        val intentSpeach = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
+        binding.btnFacebook.setOnClickListener(){
+            val intentSpeach = Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH)
             intentSpeach.putExtra(
                 RecognizerIntent.EXTRA_LANGUAGE_MODEL,
                 RecognizerIntent.LANGUAGE_MODEL_FREE_FORM
@@ -262,37 +291,16 @@ class MainActivity : AppCompatActivity() {
 
             intentSpeach.putExtra(
                 RecognizerIntent.EXTRA_PROMPT,
-            "DI algo plox"
+                "DI algo plox"
             )
             speechToText.launch(intentSpeach)
         }
     }
 
-    /*fun abrirGoogle(){
 
-        binding.btnTwitter.setOnClickListener{
-            val intent = Intent(Intent.ACTION_VIEW,Uri.parse("https://www.google.com/")
-            )
-            startActivity(intent)
-        }
-
-    }*/
-
-
-    fun llamar(){
-
-        binding.btnFacebook.setOnClickListener(){
-            var uri = Uri.parse("tel:0963269273");
-            var intent = Intent(Intent.ACTION_DIAL, uri);
-            startActivity(intent)
-        }
-
-    }
     override fun onStart() {
         super.onStart()
         initClass()
-
-
 
     }
 
