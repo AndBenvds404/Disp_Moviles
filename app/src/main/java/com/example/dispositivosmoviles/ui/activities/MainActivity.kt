@@ -26,7 +26,9 @@ import androidx.lifecycle.lifecycleScope
 import android.content.Context
 import android.location.Geocoder
 import android.location.Location
+import android.location.LocationManager
 import android.os.Looper
+import android.provider.Settings
 import android.speech.RecognizerIntent
 import android.util.Log
 import androidx.activity.result.contract.ActivityResultContracts
@@ -35,18 +37,22 @@ import androidx.core.content.PermissionChecker.PermissionResult
 
 import com.example.dispositivosmoviles.R
 import com.example.dispositivosmoviles.databinding.ActivityMainBinding
+import com.example.dispositivosmoviles.ui.utilities.MyLocationManager
 import com.example.dispositivosmoviles.ui.validator.LoginValidator
+import com.google.android.gms.common.api.ResolvableApiException
 import com.google.android.gms.location.CurrentLocationRequest
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationCallback
 import com.google.android.gms.location.LocationRequest
 import com.google.android.gms.location.LocationResult
 import com.google.android.gms.location.LocationServices
+import com.google.android.gms.location.LocationSettingsRequest
+import com.google.android.gms.location.LocationSettingsStatusCodes
 import com.google.android.gms.location.Priority
-
-
-import com.google.android.material.snackbar.Snackbar
+import com.google.android.gms.location.SettingsClient
 import java.util.Locale
+import com.google.android.material.snackbar.Snackbar
+
 import kotlin.math.log
 
 
@@ -57,9 +63,15 @@ class MainActivity : AppCompatActivity() {
 
     //Para enalzar y utilizar el Binding
     private lateinit var binding: ActivityMainBinding
+
+    //UBICACION Y GPS
     private lateinit var fusedLocationProviderClient:FusedLocationProviderClient
     private lateinit var locationRquest: LocationRequest
     private lateinit var locationCallback: LocationCallback
+
+    private lateinit var client : SettingsClient
+    private lateinit var locationSettingRequest:LocationSettingsRequest
+
 
 
         @SuppressLint("MissingPermission")
@@ -67,85 +79,133 @@ class MainActivity : AppCompatActivity() {
                 isGranted->
 
 
-               when (isGranted){
+            when(isGranted){
+                true -> {
+                    client.checkLocationSettings(locationSettingRequest).apply {
+                        addOnSuccessListener {
+                            val task = fusedLocationProviderClient.lastLocation
+                            task.addOnSuccessListener { location ->
+                                fusedLocationProviderClient.requestLocationUpdates(
+                                    locationRquest,
+                                    locationCallback,
+                                    Looper.getMainLooper()
+                                )
 
-               true ->{
+                            }
+                        }
 
-                   val task = fusedLocationProviderClient.lastLocation
-                   task.addOnSuccessListener { location ->
-                       fusedLocationProviderClient.requestLocationUpdates(
-                           locationRquest,
-                           locationCallback,
-                           Looper.getMainLooper()
+                        addOnFailureListener() { ex ->
+                            if (ex is ResolvableApiException) {
+                                ex.startResolutionForResult(
+                                    this@MainActivity,
+                                    LocationSettingsStatusCodes.RESOLUTION_REQUIRED
+                                )
 
-                       )
-                   }
-                       /* task.addOnSuccessListener {
-                            var alert = androidx.appcompat.app.AlertDialog.Builder(this )
-                            alert.apply{
-                                setTitle("Titulo alerta")
-                                setMessage("Existe un problema con el sistema de posicionacmiento")
-                                setPositiveButton("ok"){dialog,id->dialog.dismiss()
-                                }
-                                setCancelable(false)
+                            }
+                        }
+
+                    }
+
+                   /* val alert = androidx.appcompat.app.AlertDialog.Builder(this).apply {
+                        setTitle("notificacion")
+                        setMessage("por favor verifique que el gps este encendido")
+                        setPositiveButton("verificar"){dialog,id ->
+
+                            val i = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
+                            startActivity(i)
+                            dialog.dismiss()
+                        }
+                        setCancelable(false)
+                    }.show()*/
+
+                    /*
+                    task.addOnSuccessListener {
+                            location ->
+
+                        fusedLocationProviderClient.requestLocationUpdates(
+                            locationRquest, //tipo ubicacion, tiempo
+                            locationCallback, //resultado
+                            Looper.getMainLooper() //loop
+                        )
+                    }
+
+                    //cuando falla
+                    task.addOnFailureListener{
+                        val alert = AlertDialog.Builder(this)
+                        alert.apply {
+                            setTitle("Alerta")
+                            setMessage("Existe un problema con el sistema de posicionamiento global en el sistema")
+                            setPositiveButton("Ok") {dialog, id ->
+                                dialog.dismiss()
+                            }
+                            setNegativeButton("Cancelar") {dialog, id ->
+                                dialog.dismiss()
+                            }
+                            setCancelable(false) //no puede tocar fuera el dialog hasta que toque alguna opcion
                         }.create()
-                            alert.show()
-                   }*/
+                        alert.show()
+                    }*/
 
-               }
-                   shouldShowRequestPermissionRationale(Manifest.permission.ACCESS_FINE_LOCATION
-                   )->{
-                       Snackbar.make(binding.txtName,
-                           "ayudame a ayudarte",
-                           Snackbar.LENGTH_LONG)
-                           .show()
-
-                   }
-
-                     false->{  Snackbar.make(binding.txtName,
-                       "denegado permiso",
-                       Snackbar.LENGTH_LONG)
-                       .show()
-                 }
+                }
 
 
-           }
-    }
+                //Informa al usuario de porque se necesita los permisos
+                shouldShowRequestPermissionRationale(
+                    Manifest.permission.ACCESS_FINE_LOCATION
+                ) -> {
+                    Snackbar.make(binding.txtName,
+                        "Ayude con el permiso",
+                        Snackbar.LENGTH_LONG)
+                        .show()
+                }
+                false -> {
+                    Snackbar.make(binding.txtName, "Permiso denegado", Snackbar.LENGTH_LONG)
+                        .show()
+                }
+            }
 
-
-    val speechToText = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()){
+        }
+    val speechToText = registerForActivityResult( ActivityResultContracts.StartActivityForResult()){
             activityResult->
 
-        val sn = Snackbar.make(binding.txtName, "", Snackbar.LENGTH_LONG)
+        val sn = Snackbar.make(
+            binding.txtName,
+            "",
+            Snackbar.LENGTH_LONG
+        )
+
         var message = ""
+
         when(activityResult.resultCode){
-            RESULT_OK->{
-                val msg = activityResult.data?.getStringArrayListExtra(
-                    RecognizerIntent.EXTRA_RESULTS).toString()
+            RESULT_OK -> {
+                val msg = activityResult.
+                data?.getStringArrayListExtra(
+                    RecognizerIntent.EXTRA_RESULTS
+                )?.get(0).toString()
 
                 if(msg.isNotEmpty()){
                     val intent = Intent(
-                        Intent.ACTION_WEB_SEARCH,
+                        Intent.ACTION_WEB_SEARCH
                     )
                     intent.setClassName(
                         "com.google.android.googlequicksearchbox",
                         "com.google.android.googlequicksearchbox.SearchActivity"
                     )
-                    intent.putExtra(SearchManager.QUERY,msg)
+                    intent.putExtra(SearchManager.QUERY, msg)
                     startActivity(intent)
                 }
             }
+            RESULT_CANCELED -> {
+                message = "Proceso cancelado"
+                sn.setBackgroundTint(resources.getColor(R.color.red))
+            }
+            else -> {
+                "Ocurrio un error"
+                sn.setBackgroundTint(resources.getColor(R.color.red))
+            }
 
-            RESULT_CANCELED->{
+        }
 
-            }else ->{
-            message = "ocurrio un eerro"
-            sn.setBackgroundTint(resources.getColor(R.color.orange))
-        }
-        }
-        sn.setText(message)
-        sn.show()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -173,6 +233,9 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+        client = LocationServices.getSettingsClient(this)
+        locationSettingRequest =  LocationSettingsRequest.Builder().addLocationRequest(locationRquest).build()
+
     }
 
     override fun onDestroy() {
@@ -311,5 +374,11 @@ class MainActivity : AppCompatActivity() {
             prefs[stringPreferencesKey("email")] = "dispositivosmoviles@uce.edu.ec"
 
         }
+    }
+
+    private fun test(){
+        //instanciar la clase LocatinManager
+        var location = MyLocationManager(this)
+        location.getUserLocation()
     }
 }
