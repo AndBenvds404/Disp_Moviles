@@ -79,4 +79,7 @@ dependencies {
 
     //location
     implementation("com.google.android.gms:play-services-location:21.0.1")
+
+    //Notificaciones
+    implementation("androidx.core:core-ktx:1.10.1")
 }

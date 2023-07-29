@@ -28,7 +28,7 @@ class CameraActivity : AppCompatActivity() {
 
         binding.imageCapture.setOnClickListener{
             val shareIntent = Intent(Intent.ACTION_SEND)
-            shareIntent.putExtra(Intent.EXTRA_TEXT, "hola prro")
+            shareIntent.putExtra(Intent.EXTRA_TEXT, "hola prro compalte")
             shareIntent.setType("text/plain")
 
             startActivity(Intent.createChooser(shareIntent, "compartir"))
