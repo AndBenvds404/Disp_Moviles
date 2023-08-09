@@ -4,6 +4,10 @@ plugins {
     id 'kotlin-parcelize'
     id 'kotlin-kapt'
 
+    // Add the Google services Gradle plugin
+    id("com.google.gms.google-services")
+
+
 }
 
 android {
@@ -99,4 +103,12 @@ dependencies {
     implementation "androidx.biometric:biometric:1.2.0-alpha05"
     //facebook
     implementation("com.facebook.shimmer:shimmer:0.1.0@aar")
+
+    //Firebase
+    implementation(platform("com.google.firebase:firebase-bom:32.2.2"))
+    implementation("com.google.firebase:firebase-analytics-ktx")
+    implementation("com.google.firebase:firebase-auth-ktx")
+
+
+
 }

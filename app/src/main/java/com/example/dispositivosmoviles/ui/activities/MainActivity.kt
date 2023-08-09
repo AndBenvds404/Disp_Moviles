@@ -52,6 +52,9 @@ import com.google.android.gms.location.Priority
 import com.google.android.gms.location.SettingsClient
 import java.util.Locale
 import com.google.android.material.snackbar.Snackbar
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 import kotlin.math.log
 
@@ -63,6 +66,9 @@ class MainActivity : AppCompatActivity() {
 
     //Para enalzar y utilizar el Binding
     private lateinit var binding: ActivityMainBinding
+    private lateinit var auth: FirebaseAuth
+
+
 
     //UBICACION Y GPS
     private lateinit var fusedLocationProviderClient:FusedLocationProviderClient
@@ -105,46 +111,6 @@ class MainActivity : AppCompatActivity() {
                         }
 
                     }
-
-                   /* val alert = androidx.appcompat.app.AlertDialog.Builder(this).apply {
-                        setTitle("notificacion")
-                        setMessage("por favor verifique que el gps este encendido")
-                        setPositiveButton("verificar"){dialog,id ->
-
-                            val i = Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)
-                            startActivity(i)
-                            dialog.dismiss()
-                        }
-                        setCancelable(false)
-                    }.show()*/
-
-                    /*
-                    task.addOnSuccessListener {
-                            location ->
-
-                        fusedLocationProviderClient.requestLocationUpdates(
-                            locationRquest, //tipo ubicacion, tiempo
-                            locationCallback, //resultado
-                            Looper.getMainLooper() //loop
-                        )
-                    }
-
-                    //cuando falla
-                    task.addOnFailureListener{
-                        val alert = AlertDialog.Builder(this)
-                        alert.apply {
-                            setTitle("Alerta")
-                            setMessage("Existe un problema con el sistema de posicionamiento global en el sistema")
-                            setPositiveButton("Ok") {dialog, id ->
-                                dialog.dismiss()
-                            }
-                            setNegativeButton("Cancelar") {dialog, id ->
-                                dialog.dismiss()
-                            }
-                            setCancelable(false) //no puede tocar fuera el dialog hasta que toque alguna opcion
-                        }.create()
-                        alert.show()
-                    }*/
 
                 }
 
@@ -236,7 +202,92 @@ class MainActivity : AppCompatActivity() {
         client = LocationServices.getSettingsClient(this)
         locationSettingRequest =  LocationSettingsRequest.Builder().addLocationRequest(locationRquest).build()
 
+
+        auth = Firebase.auth
+
+        binding.btnLogin.setOnClickListener{
+            singInWithEmailAndPassword(binding.txtEmail.text.toString(), binding.txtPass.text.toString())
+        }
+
+        binding.txtForgotPass.setOnClickListener{
+            recoveryPasswordWithEmail(binding.txtEmail.text.toString())
+        }
     }
+
+    private fun authWithFirebaseEmail(email:String, password:String) {
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task -> //corrutina
+                if (task.isSuccessful) {
+                    //que es lo que pasa si entró el usuario
+                    Log.d(Constants.TAG, "createUserWithEmail:success")
+                    val user = auth.currentUser
+
+                    Toast.makeText(
+                        baseContext, "autenticacion succes",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                    //updateUI(user)
+                } else {
+                    //si la autenticacion falla
+                    Log.w(Constants.TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                    //updateUI(null)
+                }
+            }
+    }
+
+    private fun recoveryPasswordWithEmail(email: String){
+        auth.sendPasswordResetEmail(email).
+            addOnCompleteListener{task->
+                if(task.isSuccessful){
+
+                    Toast.makeText(
+                        this,
+                        "enviado correo de recupoeracion de password.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+
+                }else{
+                    Log.w(Constants.TAG, "createUserWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext,
+                        "algo salio mal con la recuperacion de correo",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                    //updateUI(null)
+                }
+            }
+    }
+
+    private fun singInWithEmailAndPassword(email:String, password: String){
+        auth.signInWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+                    // Sign in success, update UI with the signed-in user's information
+                    Log.d(Constants.TAG, "signInWithEmail:success")
+                    val user = auth.currentUser
+                    Toast.makeText(
+                        baseContext, "autenticacion succes",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                //updateUI(user)
+                } else {
+                    // If sign in fails, display a message to the user.
+                    Log.w(Constants.TAG, "signInWithEmail:failure", task.exception)
+                    Toast.makeText(
+                        baseContext,
+                        "Authentication failed.",
+                        Toast.LENGTH_SHORT,
+                    ).show()
+                    //updateUI(null)
+                }
+            }
+    }
+
 
     override fun onDestroy() {
         super.onDestroy()
@@ -251,7 +302,7 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     private fun initClass() {
 
-        binding.btnLogin.setOnClickListener {
+      /*  binding.btnLogin.setOnClickListener {
 
             val check = LoginValidator().checkLogin(
                 binding.txtName.text.toString(), binding.txtPass.text.toString()
@@ -276,7 +327,7 @@ class MainActivity : AppCompatActivity() {
                 snackbar.show()
             }
 
-        }
+        }*/
 
 
 
