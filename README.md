@@ -20,18 +20,18 @@
 
 # Librerías
 
-&#x25CF; Firebase Authentication
-&#x25CF; DataStore
-&#x25CF; Intent
-&#x25CF; Coroutines
-&#x25CF; Picasso
-&#x25CF; Notification
-&#x25CF; Biometric
-&#x25CF; Speech
-&#x25CF; Databinding Camera
-&#x25CF; Location
-&#x25CF; Firebase
-&#x25CF; Volley
+### &#x25CF; Firebase Authentication
+### &#x25CF; DataStore
+### &#x25CF; Intent
+### &#x25CF; Coroutines
+### &#x25CF; Picasso
+### &#x25CF; Notification
+### &#x25CF; Biometric
+### &#x25CF; Speech
+### &#x25CF; Databinding Camera
+### &#x25CF; Location
+### &#x25CF; Firebase
+### &#x25CF; Volley
 
 # Result
 ![notificacion9](https://github.com/AndBenvds404/Disp_Moviles/assets/105686446/efc39f2a-1ed8-4012-bda0-7e40e190ba12)
