@@ -34,14 +34,13 @@
 ### &#x25CF; Volley
 
 # Result
-![log_in5](https://github.com/AndBenvds404/Disp_Moviles/assets/105686446/ff0bad03-b58f-413c-a32b-327675258684)
-![menu7](https://github.com/AndBenvds404/Disp_Moviles/assets/105686446/8628a727-4e42-4954-a168-1417e9797fba)
-![chatGpt3](https://github.com/AndBenvds404/Disp_Moviles/assets/105686446/11b79296-a96e-4743-8246-76e1c4319315)
-![bienvenido_marvel1](https://github.com/AndBenvds404/Disp_Moviles/assets/105686446/41f09f0f-a18d-4a51-b49c-76176e383f1a)
-![marvel_personajes6](https://github.com/AndBenvds404/Disp_Moviles/assets/105686446/18750ccb-bd7f-498a-9b6a-994aa98fd01d)
-![detalle_personaje4](https://github.com/AndBenvds404/Disp_Moviles/assets/105686446/7c53a7c8-d67f-4113-acdd-e5f1925e15ab)
-![notificacion_1](https://github.com/AndBenvds404/Disp_Moviles/assets/105686446/80ed6294-2e16-4be5-8198-6f44b8bca848)
-![notificacion9](https://github.com/AndBenvds404/Disp_Moviles/assets/105686446/efc39f2a-1ed8-4012-bda0-7e40e190ba12)
-![microfono8](https://github.com/AndBenvds404/Disp_Moviles/assets/105686446/ff1daabd-926a-4ddb-8543-0e7f56cc5343)
-![biometrico2](https://github.com/AndBenvds404/Disp_Moviles/assets/105686446/801ef2c1-eb58-47a3-99d3-8303adc3ddcb)
+!(capturas/log_in5.png)
+!(capturas/bienvenido_marvel1.png)
+!(capturas/biometrico2.png)
+!(capturas/chatGpt3.png)
+!(capturas/menu7.png)
+!(capturas/marvel_personajes6.png)
+!(capturas/detalle_personaje4.png)
+!(capturas/microfono8.png)
+!(capturas/notificacion9.png)
 
