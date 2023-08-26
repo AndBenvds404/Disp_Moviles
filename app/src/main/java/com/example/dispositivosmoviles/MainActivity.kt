@@ -2,10 +2,8 @@ package com.example.dispositivosmoviles
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
 import android.widget.Button
 import android.widget.TextView
-import android.widget.Toast
 import com.example.dispositivosmoviles.ui.utilities.DispositivosMoviles
 import com.google.android.material.snackbar.Snackbar
 
@@ -17,7 +15,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         var button1 = findViewById<Button>(R.id.btnLogin)
-        var txtBuscar = findViewById(R.id.txt_name) as TextView
+        var txtBuscar = findViewById(R.id.lblCorreo) as TextView
         button1.text = "Ingresar"
         button1.setOnClickListener{
             txtBuscar.text = "El evento se ha ejecutado!!!!"

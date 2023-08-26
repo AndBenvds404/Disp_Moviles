@@ -4,7 +4,20 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo4"
     tools:context=".ui.activities.BiometricActivity">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="38dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="40dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/baseline_arrow_back_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.083"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:id="@+id/layoutMain"
@@ -20,6 +33,7 @@
         app:layout_constraintTop_toTopOf="parent"
 
 
+
         >
         <TextView
             android:layout_width="match_parent"
@@ -27,8 +41,9 @@
             android:layout_marginBottom="24dp"
             android:gravity="center"
             android:text="Autenticación biométrica"
-            android:textSize="42sp"
-
+            android:textSize="46sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/facebook"
             app:layout_constraintBottom_toTopOf="@+id/btnAutentication"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />
@@ -37,8 +52,8 @@
 
         <ImageView
             android:id="@+id/btnAutentication"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
             android:src="@drawable/baseline_fingerprint_24"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -66,8 +81,7 @@
             >
 
            <include layout="@layout/shimmer_layout_biometric"/>
-            <include layout="@layout/shimmer_layout_biometric"/>
-            <include layout="@layout/shimmer_layout_biometric"/>
+
 
         </LinearLayout>
 

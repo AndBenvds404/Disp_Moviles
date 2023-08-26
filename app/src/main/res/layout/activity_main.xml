@@ -3,15 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:background="@drawable/fondo_blue"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:background="@color/background_dm"
-        android:orientation="vertical"
+
         tools:context=".ui.activities.MainActivity"
         >
 
@@ -25,7 +24,7 @@
             android:layout_marginTop="@dimen/marginTop"
             android:layout_marginBottom="@dimen/marginBottom"
             android:layout_marginEnd="@dimen/dimLogin"
-            android:fontFamily="@font/cabin"
+            android:fontFamily="@font/facebook"
             android:gravity="left"
             android:includeFontPadding="false"
             android:text="@string/app_name_menu"
@@ -44,7 +43,7 @@
             app:layout_constraintHorizontal_bias="0.501"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/logo_edi" />
+            app:srcCompat="@drawable/loge_orc" />
 
         <TextView
             android:id="@+id/txt_password"
@@ -59,10 +58,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_name" />
+            app:layout_constraintTop_toBottomOf="@+id/lblCorreo" />
 
         <EditText
-            android:id="@+id/txt_pass"
+            android:id="@+id/lbl_pass"
             android:layout_width="match_parent"
             android:layout_height="@dimen/txtBoxHeight"
             android:layout_marginStart="@dimen/dimLogin"
@@ -135,7 +134,7 @@
             app:layout_constraintTop_toBottomOf="@+id/btn_container" />
 
         <EditText
-            android:id="@+id/txt_name"
+            android:id="@+id/lblCorreo"
             android:layout_width="match_parent"
             android:layout_height="@dimen/txtBoxHeight"
             android:layout_marginStart="@dimen/dimLogin"
@@ -225,7 +224,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.434"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_pass" />
+            app:layout_constraintTop_toBottomOf="@+id/lbl_pass" />
 
         <TextView
             android:id="@+id/txt_saludo"

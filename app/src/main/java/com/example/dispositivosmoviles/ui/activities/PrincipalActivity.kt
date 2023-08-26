@@ -38,7 +38,7 @@ class PrincipalActivity : AppCompatActivity() {
 
         binding.btnRetorno.setOnClickListener {
             startActivity(
-                Intent(this, MainActivity::class.java))
+                Intent(this, MenuActivity::class.java))
         }
 
         binding.bottomNavigation.setOnItemSelectedListener { item ->
@@ -48,20 +48,6 @@ class PrincipalActivity : AppCompatActivity() {
                     true
                 }
 
-/*                R.id.menu_item_bluetooth -> {
-                    // Respond to navigation item 2 click
-                    var suma : Int = 0;
-                    for (i in listOf(8,12,13)){
-                        suma = suma + i;
-                    }
-                    var s = Snackbar.make(binding.txtTitle,
-                        "La suma es ${suma}",
-                        Snackbar.LENGTH_LONG)
-
-                    s.setBackgroundTint(ContextCompat.getColor(binding.root.context, R.color.principal_color_dm))
-                    s.show()
-                    true
-                }*/
                 R.id.menu_item_bluetooth -> {
                     FragmentsManager().replaceFragment(supportFragmentManager, binding.frmContainter.id, SecondFragment())
                     true

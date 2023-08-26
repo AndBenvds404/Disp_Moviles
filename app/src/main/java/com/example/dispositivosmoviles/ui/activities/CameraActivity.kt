@@ -33,6 +33,12 @@ class CameraActivity : AppCompatActivity() {
 
             startActivity(Intent.createChooser(shareIntent, "compartir"))
         }
+
+        binding.btnBack.setOnClickListener{
+            var backIntent = Intent(this, MenuActivity::class.java)
+            startActivity(backIntent)
+
+        }
     }
 
 

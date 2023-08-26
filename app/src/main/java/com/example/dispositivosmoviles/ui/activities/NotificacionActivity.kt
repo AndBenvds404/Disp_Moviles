@@ -48,6 +48,12 @@ class NotificacionActivity : AppCompatActivity() {
             calendar.set(Calendar.SECOND, 0)
             sendNorificacionTimePicker(calendar.timeInMillis)
         }
+
+        binding.btnBack.setOnClickListener {
+            startActivity(
+                Intent(this, MenuActivity::class.java))
+        }
+
     }
 
     private fun sendNorificacionTimePicker(time: Long) {

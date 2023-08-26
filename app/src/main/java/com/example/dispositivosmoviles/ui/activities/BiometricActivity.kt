@@ -47,6 +47,13 @@ class BiometricActivity : AppCompatActivity() {
         lifecycleScope.launch {
             biometricViewModel.charginfData()
         }
+
+        binding.btnBack.setOnClickListener {
+            startActivity(
+                Intent(this, MenuActivity::class.java))
+        }
+
+
     }
 
 

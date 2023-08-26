@@ -119,13 +119,13 @@ class MainActivity : AppCompatActivity() {
                 shouldShowRequestPermissionRationale(
                     Manifest.permission.ACCESS_FINE_LOCATION
                 ) -> {
-                    Snackbar.make(binding.txtName,
+                    Snackbar.make(binding.lblCorreo,
                         "Ayude con el permiso",
                         Snackbar.LENGTH_LONG)
                         .show()
                 }
                 false -> {
-                    Snackbar.make(binding.txtName, "Permiso denegado", Snackbar.LENGTH_LONG)
+                    Snackbar.make(binding.lblCorreo, "Permiso denegado", Snackbar.LENGTH_LONG)
                         .show()
                 }
             }
@@ -135,7 +135,7 @@ class MainActivity : AppCompatActivity() {
             activityResult->
 
         val sn = Snackbar.make(
-            binding.txtName,
+            binding.lblCorreo,
             "",
             Snackbar.LENGTH_LONG
         )
@@ -206,7 +206,7 @@ class MainActivity : AppCompatActivity() {
         auth = Firebase.auth
 
         binding.btnLogin.setOnClickListener{
-            singInWithEmailAndPassword(binding.txtEmail.text.toString(), binding.txtPass.text.toString())
+            singInWithEmailAndPassword(binding.lblCorreo.text.toString(), binding.lblPass.text.toString())
         }
 
         binding.txtForgotPass.setOnClickListener{
@@ -267,13 +267,16 @@ class MainActivity : AppCompatActivity() {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
                 if (task.isSuccessful) {
+
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(Constants.TAG, "signInWithEmail:success")
-                    val user = auth.currentUser
+
                     Toast.makeText(
                         baseContext, "autenticacion succes",
                         Toast.LENGTH_SHORT,
                     ).show()
+                    var intent = Intent(this, MenuActivity::class.java)
+                    startActivity(intent)
                 //updateUI(user)
                 } else {
                     // If sign in fails, display a message to the user.
@@ -302,49 +305,12 @@ class MainActivity : AppCompatActivity() {
     @SuppressLint("MissingPermission")
     private fun initClass() {
 
-      /*  binding.btnLogin.setOnClickListener {
-
-            val check = LoginValidator().checkLogin(
-                binding.txtName.text.toString(), binding.txtPass.text.toString()
-            )
-
-            if(check){
-
-                lifecycleScope.launch(Dispatchers.IO){
-                    saveDataStore(binding.txtName.text.toString())
-                }
-
-                var intent = Intent(this, PrincipalActivity::class.java)
-                intent.putExtra("var1", binding.txtName.text.toString())
-                intent.putExtra("var2", 2)
-                startActivity(intent)
-            }else{
-                var snackbar = Snackbar.make(binding.txtTitle,
-                    "Usuario o contraseña inválidos",
-                    Snackbar.LENGTH_LONG)
-                //snackbar.setBackgroundTint(ContextCompat.getColor(binding.root.context, R.color.principal_color_dm))
-                snackbar.setBackgroundTint(getResources().getColor(R.color.black))
-                snackbar.show()
-            }
-
-        }*/
-
-
 
 
         binding.btnTwitter.setOnClickListener {
 
             locationContract.launch(Manifest.permission.ACCESS_FINE_LOCATION)
 
-            /*val intent = Intent(
-                Intent.ACTION_WEB_SEARCH,
-            )
-            intent.setClassName(
-                "com.google.android.googlequicksearchbox",
-                "com.google.android.googlequicksearchbox.SearchActivity"
-            )
-            intent.putExtra(SearchManager.QUERY,"Steam")
-            startActivity(intent)*/
         }
 
         val appResultLocal = registerForActivityResult(
@@ -353,7 +319,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
-            val sn = Snackbar.make(binding.txtName,
+            val sn = Snackbar.make(binding.lblCorreo,
                 "",Snackbar.LENGTH_LONG)
 
 

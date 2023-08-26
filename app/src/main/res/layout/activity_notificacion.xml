@@ -4,23 +4,43 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/fondo_cuadricula"
     tools:context=".ui.activities.NotificacionActivity">
+
+    <ImageButton
+        android:id="@+id/btnBack"
+        android:layout_width="38dp"
+        android:layout_height="34dp"
+        android:layout_marginTop="28dp"
+        android:background="#00FFFFFF"
+        android:src="@drawable/baseline_arrow_back_24"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.072"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints" />
 
     <TimePicker
         android:id="@+id/timePicker"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintEnd_toStartOf="parent"
+        android:layout_marginTop="72dp"
+        android:contextClickable="true"
+        android:headerBackground="#00FFFFFF"
+        android:numbersBackgroundColor="#00FFFFFF"
+        android:textAlignment="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/btnNotification"
-        android:layout_width="184dp"
-        android:layout_height="35dp"
-        android:backgroundTint="@color/twitter_color_dm"
+        android:layout_width="181dp"
+        android:layout_height="94dp"
+        android:backgroundTint="#8601A2F4"
         android:text="enviar Notificación"
+        android:textSize="24sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
@@ -33,7 +53,8 @@
         android:layout_width="245dp"
         android:layout_height="48dp"
         android:text="Notificación"
-        android:backgroundTint="@color/blue"
+        android:textSize="24dp"
+        android:backgroundTint="#79B30942"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

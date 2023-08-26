@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activities.MenuActivity"
+    android:background="@drawable/fondo4"
+    >
+
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:fontFamily="@font/facebook"
+        android:padding="7dp"
+        android:text="Dispositivos Moviles Retrofit"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="40sp"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toTopOf="@+id/btnChatGPT"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.055"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/btnChatGPT"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="172dp"
+        android:text="@string/btn1"
+        android:textSize="27sp"
+        android:textColor="@color/rojosado"
+        android:backgroundTint="@color/gris_osc"
+        android:fontFamily="@font/facebook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints"></Button>
+
+    <Button
+        android:id="@+id/btnMarvel"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/btn2"
+        android:textSize="27sp"
+        android:textColor="@color/rojosado"
+        android:backgroundTint="@color/gris_osc"
+        android:fontFamily="@font/facebook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnChatGPT"
+        tools:ignore="MissingConstraints"></Button>
+
+    <Button
+        android:id="@+id/btnCamara"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/btn3"
+        android:textSize="27sp"
+        android:textColor="@color/rojosado"
+        android:backgroundTint="@color/gris_osc"
+        android:fontFamily="@font/facebook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMarvel"
+        tools:ignore="MissingConstraints"></Button>
+
+    <Button
+        android:id="@+id/btnSalir"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:backgroundTint="@color/gris_osc"
+        android:fontFamily="@font/facebook"
+        android:text="@string/btn4"
+        android:textColor="@color/rojosado"
+        android:textSize="27sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.504"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnNotification"
+        tools:ignore="MissingConstraints"></Button>
+
+    <Button
+        android:id="@+id/btnBiometric"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:backgroundTint="@color/gris_osc"
+        android:fontFamily="@font/facebook"
+        android:text="@string/btn5"
+        android:textColor="@color/rojosado"
+        android:textSize="27sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnCamara"
+        tools:ignore="MissingConstraints"></Button>
+
+    <Button
+        android:id="@+id/btnNotification"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:text="@string/btn6"
+        android:textSize="27sp"
+        android:textColor="@color/rojosado"
+        android:backgroundTint="@color/gris_osc"
+        android:fontFamily="@font/facebook"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnBiometric"
+        tools:ignore="MissingConstraints"></Button>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
