@@ -21,7 +21,6 @@
 # Librerías
 
 &#x25CF; Firebase Authentication
-&#x25CF; 
 &#x25CF; DataStore
 &#x25CF; Intent
 &#x25CF; Coroutines
