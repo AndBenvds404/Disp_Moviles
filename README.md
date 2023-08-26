@@ -35,12 +35,12 @@
 
 # Result
 ![aa1](capturas/bienvenido_marvel1.png)
-!(capturas/bienvenido_marvel1.png)
-!(capturas/biometrico2.png)
-!(capturas/chatGpt3.png)
-!(capturas/menu7.png)
-!(capturas/marvel_personajes6.png)
-!(capturas/detalle_personaje4.png)
-!(capturas/microfono8.png)
-!(capturas/notificacion9.png)
+![](capturas/bienvenido_marvel1.png)
+![](capturas/biometrico2.png)
+![](capturas/chatGpt3.png)
+![](capturas/menu7.png)
+![](capturas/marvel_personajes6.png)
+![](capturas/detalle_personaje4.png)
+![](capturas/microfono8.png)
+![](capturas/notificacion9.png)
 
