@@ -1,4 +1,4 @@
-# Proyecto Trabajo en clase
+# Proyecto Final
 
 ### Registro y Autenticación: Emplea Firebase para habilitar el registro y la autenticación de usuarios en la aplicación a través de sus credenciales de correo electrónico y contraseña.
 
